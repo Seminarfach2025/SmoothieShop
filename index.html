@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smoothie Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-brand">Smoothie Shop 🍹</div>
+        <ul class="nav-links">
+            <li><button onclick="showSection('order-section')">Bestellen</button></li>
+            <li><button onclick="showSection('menu-section')">Menü</button></li>
+            <li><button onclick="showSection('login-section')">Login</button></li>
+        </ul>
+    </nav>
+
+    <main id="content-container">
+
+        <section id="welcome-section" class="active-section">
+            <h1 id="welcome-message">Heute ist ein toller Tag für Smoothies. Was möchten Sie bestellen?</h1>
+            <p>Bitte wählen Sie oben "Bestellen", um zu starten.</p>
+        </section>
+
+        <section id="order-section" class="hidden-section">
+            <h2>Bestellung</h2>
+            
+            <div id="order-step-1">
+                <h3>Schritt 1: Ihre Daten</h3>
+                <label for="firstName">Vorname:</label>
+                <input type="text" id="firstName" required><br><br>
+                
+                <label for="lastName">Nachname:</label>
+                <input type="text" id="lastName" required><br><br>
+                
+                <button onclick="startSmoothieSelection()">Weiter zur Auswahl</button>
+            </div>
+
+            <div id="order-step-2" class="hidden">
+                <h3>Schritt 2: Smoothies wählen</h3>
+                <div id="smoothie-list">
+                    <p>Wird geladen...</p>
+                </div>
+                
+                <hr>
+                <div class="cart-summary">
+                    <p>Warenkorb-Gesamtpreis: <span id="total-price">0.00</span> €</p>
+                    <button onclick="goToDiscountStep()" id="order-continue-btn" disabled>Weiter zur Kasse</button>
+                </div>
+            </div>
+
+            <div id="order-step-3" class="hidden">
+                <h3>Schritt 3: Ihr Überraschungs-Rabatt</h3>
+                <div id="discount-area">
+                    <p>Laden Sie Ihren Rabatt, indem Sie auf den Button klicken:</p>
+                    <button onclick="applyDiscount()">Rabatt aufdecken!</button>
+                    <p id="discount-display" style="font-size: 1.2em; margin-top: 15px; font-weight: bold;"></p>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <p>Aktueller Gesamtpreis (mit Rabatt): <span id="final-price">0.00</span> €</p>
+                    <button onclick="goToPaymentStep()">Weiter zur Zahlung</button>
+                </div>
+            </div>
+
+            <div id="order-step-4" class="hidden">
+                <h3>Schritt 4: Zahlung</h3>
+                <p>Zu zahlender Betrag: <span id="payment-amount">0.00</span> €</p>
+                
+                <div class="payment-options">
+                    <button onclick="showPaymentForm('paypal')">PayPal</button>
+                    <button onclick="showPaymentForm('cash')">Barzahlung</button>
+                    <button onclick="showPaymentForm('credit')">Kreditkarte</button>
+                    <button onclick="showPaymentForm('debit')">Debitkarte</button>
+                </div>
+
+                <div id="payment-form-area" style="margin-top: 20px;">
+                    </div>
+                
+                <p id="payment-status" style="margin-top: 15px;"></p>
+            </div>
+
+            <div id="order-step-5" class="hidden">
+                <h3>Vielen Dank für Ihre Bestellung!</h3>
+                <p id="confirmation-message">Ihre Bestellung ist eingegangen und wird in Kürze zubereitet.</p>
+                <button onclick="showSection('welcome-section')">Neue Bestellung</button>
+            </div>
+        </section>
+
+        <section id="menu-section" class="hidden-section">
+            <h2>Unser Menü 📜</h2>
+            <div id="smoothie-menu-display">
+                <p>Menü wird geladen...</p>
+            </div>
+        </section>
+
+        <section id="login-section" class="hidden-section">
+            <h2>Admin Login</h2>
+            <div id="login-form">
+                <label for="username">Anmeldename:</label>
+                <input type="text" id="username"><br><br>
+                
+                <label for="password">Passwort:</label>
+                <input type="password" id="password"><br><br>
+                
+                <button onclick="attemptLogin()">Login</button>
+                <p id="login-error-message" style="color: red; margin-top: 10px;"></p>
+            </div>
+
+            <div id="admin-dashboard" class="hidden">
+                <h3>Admin Dashboard</h3>
+                <p>Angemeldet als: <span id="logged-in-user"></span></p>
+                
+                <hr>
+                
+                <h4>Gesamtumsatz:</h4>
+                <p id="total-revenue-display" style="font-size: 1.5em; font-weight: bold;"></p>
+                
+                <hr>
+                
+                <h4>Bestellstatistik (Häufigkeit der Smoothies):</h4>
+                <div id="order-statistics-chart">
+                    <p>Keine Bestellungen vorhanden.</p>
+                </div>
+
+                <hr>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

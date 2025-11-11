@@ -1,1 +1,0 @@
-# SmoothieShop
